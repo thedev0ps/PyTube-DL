@@ -24,6 +24,16 @@ def type_out(string: str, delay: float = 0.1, ending="\n"):
         print(ending)
 
 
+def create_config_json(config_path: Path = config_path):
+    config = {
+        "default-video-path": str(parent_dir / "Video"),
+        "default-audio-path": str(parent_dir / "Audio"),
+    }
+    if "config.json" not in os.listdir(parent_dir):
+        with open(config_path, "w") as config_file:
+            json.dump(config, config_file, indent=2)
+
+
 def get_default_paths(config_path: Path = config_path) -> dict:
     """
     Returns default download paths for video and audio from the config file.
