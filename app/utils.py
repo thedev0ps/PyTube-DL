@@ -30,8 +30,18 @@ def get_default_paths(config_path: Path = Path("config.json")) -> dict:
     Returns:
         dict: {"video": <video_path>, "audio": <audio_path>}
     """
-    with open(config_path, "r") as config_file:
-        config = json.load(config_file)
+    try:
+        with open(config_path, "r") as config_file:
+            config = json.load(config_file)
+
+    except FileNotFoundError:
+        config = {
+            "default-video-path": "./videos",
+            "default-audio-path": "./audio",
+        }
+        with open(config_path, "w") as config_file:
+            json.dump(config, config_file, indent=2)
+
     return {
         "video": config["default-video-path"],
         "audio": config["default-audio-path"],
