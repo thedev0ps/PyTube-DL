@@ -1,6 +1,7 @@
 import time
 import json
 from pathlib import Path
+import os
 
 parent_dir = Path(__file__).resolve().parent.parent
 config_path = parent_dir / "config.json"
@@ -50,3 +51,18 @@ def get_default_paths(config_path: Path = config_path) -> dict:
         "video": config["default-video-path"],
         "audio": config["default-audio-path"],
     }
+
+
+def check_ffmpeg() -> bool:
+    """
+    Checks if an ffmpeg executable exists in the 'bin' directory of the project.
+
+    Returns:
+        bool: True if any file in 'bin' contains 'ffmpeg' in its name, False otherwise.
+    """
+
+    for file in os.listdir(f"{parent_dir}/bin"):
+        if "ffmpeg" in file:
+            return True
+
+    return False
