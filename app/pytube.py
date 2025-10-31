@@ -17,6 +17,7 @@ def get_video_info(url: str) -> dict | None:
         dict | None: Dictionary with 'title', 'uploader', 'views',
                      or None if URL is invalid/unsupported.
     """
+
     try:
         info = ydl.extract_info(url, download=False)
 
@@ -44,6 +45,7 @@ def download_video(url: str) -> None:
         None: This function does not return anything. If the download fails,
               it silently returns None.
     """
+
     try:
         output_folder = utils.get_default_paths().get("video")
         outtmpl = os.path.join(output_folder, "%(title)s - %(uploader)s.%(ext)s")
