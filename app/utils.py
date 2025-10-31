@@ -14,6 +14,7 @@ def type_out(string: str, delay: float = 0.1):
         string (str): The text to be printed.
         delay (float, optional): Time delay between characters in seconds. Defaults to 0.1.
     """
+
     for char in string:
         print(char, end="", flush=True)
         time.sleep(delay)
@@ -30,6 +31,7 @@ def get_default_paths(config_path: Path = Path("config.json")) -> dict:
     Returns:
         dict: {"video": <video_path>, "audio": <audio_path>}
     """
+
     try:
         with open(config_path, "r") as config_file:
             config = json.load(config_file)
