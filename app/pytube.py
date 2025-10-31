@@ -19,11 +19,13 @@ def get_video_info(url: str) -> dict | None:
     """
     try:
         info = ydl.extract_info(url, download=False)
+
         return {
             "title": info.get("title"),
             "uploader": info.get("uploader"),
             "views": info.get("view_count"),
         }
+
     except yt_dlp.utils.DownloadError:
         return None
 
@@ -49,5 +51,6 @@ def download_video(url: str) -> None:
         local_options.update({"outtmpl": outtmpl})
         with yt_dlp.YoutubeDL(local_options) as ydl:
             ydl.download([url])
+
     except yt_dlp.utils.DownloadError:
         return None
