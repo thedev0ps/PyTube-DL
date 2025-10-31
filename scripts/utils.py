@@ -25,10 +25,22 @@ def type_out(string: str, delay: float = 0.1, ending="\n"):
 
 
 def create_config_json(config_path: Path = config_path):
+    """
+    Creates a default config.json file with predefined video and audio paths.
+
+    Args:
+        config_path (Path, optional): Path where the config.json file will be created.
+            Defaults to the global `config_path`.
+
+    Returns:
+        None
+    """
+
     config = {
         "default-video-path": str(parent_dir / "Video"),
         "default-audio-path": str(parent_dir / "Audio"),
     }
+
     with open(config_path, "w") as config_file:
         json.dump(config, config_file, indent=2)
 
