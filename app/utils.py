@@ -2,11 +2,11 @@ import time
 import json
 from pathlib import Path
 
-parent_dir = Path(__file__).parent.parent
+parent_dir = Path(__file__).resolve().parent.parent
 config_path = parent_dir / "config.json"
 
 
-def type_out(string: str, delay: float = 0.1):
+def type_out(string: str, delay: float = 0.1, ending="\n"):
     """
     Prints a string one character at a time, simulating typing.
 
@@ -21,7 +21,7 @@ def type_out(string: str, delay: float = 0.1):
     print()
 
 
-def get_default_paths(config_path: Path = Path("config.json")) -> dict:
+def get_default_paths(config_path: Path = config_path) -> dict:
     """
     Returns default download paths for video and audio from the config file.
 
@@ -38,8 +38,8 @@ def get_default_paths(config_path: Path = Path("config.json")) -> dict:
 
     except FileNotFoundError:
         config = {
-            "default-video-path": "./videos",
-            "default-audio-path": "./audio",
+            "default-video-path": str(parent_dir / "Video"),
+            "default-audio-path": str(parent_dir / "Video"),
         }
         with open(config_path, "w") as config_file:
             json.dump(config, config_file, indent=2)
