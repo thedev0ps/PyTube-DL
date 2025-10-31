@@ -18,7 +18,9 @@ def type_out(string: str, delay: float = 0.1, ending="\n"):
     for char in string:
         print(char, end="", flush=True)
         time.sleep(delay)
-    print()
+
+    if ending != "":
+        print(ending)
 
 
 def get_default_paths(config_path: Path = config_path) -> dict:
