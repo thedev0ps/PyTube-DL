@@ -1,5 +1,5 @@
 import yt_dlp
-import utils
+import scripts.utils as utils
 import os
 
 options = {"quiet": True, "no_warnings": True}
