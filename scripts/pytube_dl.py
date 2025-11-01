@@ -47,9 +47,9 @@ def download_video(url: str) -> None:
     """
 
     try:
-        output_folder = utils.load_config().get("default-video")
+        output_folder = utils.load_config().get("default_video")
         outtmpl = os.path.join(
-            output_folder, utils.load_config().get("default-outtmpl")
+            output_folder, utils.load_config().get("default_outtmpl")
         )
         local_options = options.copy()
         local_options.update({"outtmpl": outtmpl})
