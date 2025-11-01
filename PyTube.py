@@ -16,6 +16,9 @@ except ImportError:
         else:
             os.system("pip3 install -r requirements.txt")
 
+        import scripts.utils as utils
+        import scripts.pytube_dl as pytube_dl
+
     else:
         input(
             "THe program cannot continue without the required packages. Press enter to exit..."
