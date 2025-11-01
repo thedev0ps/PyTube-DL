@@ -39,6 +39,7 @@ def create_config(config_path: Path = config_path):
     config = {
         "default-video-path": str(parent_dir / "Video"),
         "default-audio-path": str(parent_dir / "Audio"),
+        "default-outtmpl": "%(title)s - %(uploader)s.%(ext)s",
     }
 
     with open(config_path, "w") as config_file:
