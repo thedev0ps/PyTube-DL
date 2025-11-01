@@ -45,7 +45,7 @@ def create_config(config_path: Path = config_path):
         json.dump(config, config_file, indent=2)
 
 
-def get_config(config_path: Path = config_path) -> dict:
+def load_config(config_path: Path = config_path) -> dict:
     """
     Returns default download paths for video and audio and output template from the config file.
 
