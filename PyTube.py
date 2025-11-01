@@ -7,8 +7,9 @@ version = 0.1
 title = f"PyTube Downloader v{version}"
 
 if "config.json" not in os.listdir(utils.parent_dir):
-    utils.create_config_json()
+    utils.create_config()
 
+os.system("cls") if platform.system() == "Windows" else os.system("clear")
 if not utils.check_ffmpeg():
 
     choice = ""
@@ -22,19 +23,48 @@ if not utils.check_ffmpeg():
             quit()
         else:
             print("Invalid input.")
+    os.system("cls") if platform.system() == "Windows" else os.system("clear")
 
-os.system("cls") if platform.system() == "Windows" else os.system("clear")
-utils.type_out("-" * (len(title) + 2), ending="", delay=0.05)
-utils.type_out(f"| {title} |", ending="", delay=0.05)
-utils.type_out("-" * (len(title) + 2), delay=0.05)
-utils.type_out(
-    """[D]ownload YouTube Video
-[U]pdate PyTube-DL
-[C]redits
-[E]xit
+choice = ""
+error = ""
 
+utils.type_out("-" * (len(title) + 2), ending="", delay=0.03)
+utils.type_out(f"| {title} |", ending="", delay=0.03)
+utils.type_out("-" * (len(title) + 2) + "\n", delay=0.03)
+
+while choice.lower() not in ["d", "c", "e"] or choice.lower() != "e":
+    os.system("cls") if platform.system() == "Windows" else os.system("clear")
+    print("-" * (len(title) + 2), end="")
+    print(f"| {title} |", end="")
+    print("-" * (len(title) + 2) + "\n")
+    print(
+        f"""1. [D]ownload YouTube Video
+2. [C]redits
+3. [E]xit
+{error}
 > Choose an option: """,
-    delay=0.03,
-    ending="",
-)
-choice = input()
+        end="",
+    )
+    choice = input()
+
+    if choice.lower() not in ["d", "c", "e"]:
+        error = "\nInvalid input, please choose on of the letters in the brackets"
+    else:
+        error = ""
+
+    while choice.lower() == "d":
+        os.system("cls") if platform.system() == "Windows" else os.system("clear")
+        url = input("Enter YouTube video URL: ")
+        info = pytube_dl.get_video_info(url)
+        utils.type_out(
+            f"\nTitle: {info.get("title")}\nUploader: {info.get("uploader")}\nViews: {info.get("views"):,}",
+            delay=0.03,
+        )
+        pytube_dl.download_video(url)
+        convert_again = input(
+            "Download Complete! Do you want to download another video [Y/N]: "
+        )
+        if convert_again.lower() == "n":
+            break
+        else:
+            print("\nInvalid input. Please enter either Y or N.")
