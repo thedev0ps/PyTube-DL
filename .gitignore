@@ -208,3 +208,7 @@ __marimo__/
 
 # Configuration File
 config.json
+
+# Downloads folders
+Video/
+Audio/
