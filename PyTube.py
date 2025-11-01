@@ -1,7 +1,26 @@
-import scripts.utils as utils
-import scripts.pytube_dl as pytube_dl
-import platform
 import os
+import platform
+
+try:
+    import scripts.utils as utils
+    import scripts.pytube_dl as pytube_dl
+
+except ImportError:
+    packages = input(
+        "Some required packages are missing. Would you like to install them? [Y/N]: "
+    )
+    if packages.lower() == "y":
+        if platform.system == "Windows":
+            os.system("pip install -r requirements.txt")
+
+        else:
+            os.system("pip3 install -r requirements.txt")
+
+    else:
+        input(
+            "THe program cannot continue without the required packages. Press enter to exit..."
+        )
+        quit()
 
 version = 0.1
 title = f"PyTube Downloader v{version}"
