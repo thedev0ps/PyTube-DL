@@ -47,8 +47,10 @@ def download_video(url: str) -> None:
     """
 
     try:
-        output_folder = utils.get_default_paths().get("video")
-        outtmpl = os.path.join(output_folder, "%(title)s - %(uploader)s.%(ext)s")
+        output_folder = utils.load_config().get("default-video")
+        outtmpl = os.path.join(
+            output_folder, utils.load_config().get("default-outtmpl")
+        )
         local_options = options.copy()
         local_options.update({"outtmpl": outtmpl})
         with yt_dlp.YoutubeDL(local_options) as ydl:
