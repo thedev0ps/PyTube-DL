@@ -64,9 +64,9 @@ def get_config(config_path: Path = config_path) -> dict:
         create_config()
 
     return {
-        "video": config["default-video-path"],
-        "audio": config["default-audio-path"],
-        "outtmpl": config["default-outtmpl"],
+        "default_video": config["default-video-path"],
+        "default_audio": config["default-audio-path"],
+        "defautlt_outtmpl": config["default-outtmpl"],
     }
 
 
