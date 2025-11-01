@@ -49,6 +49,7 @@ while choice.lower() not in ["d", "c", "e"] or choice.lower() != "e":
 
     if choice.lower() not in ["d", "c", "e"]:
         error = "\nInvalid input, please choose on of the letters in the brackets"
+
     else:
         error = ""
 
@@ -64,7 +65,14 @@ while choice.lower() not in ["d", "c", "e"] or choice.lower() != "e":
         convert_again = input(
             "Download Complete! Do you want to download another video [Y/N]: "
         )
+
         if convert_again.lower() == "n":
             break
+
         else:
             print("\nInvalid input. Please enter either Y or N.")
+
+    if choice.lower() == "c":
+        input(
+            "\nPyTube Downloader [v0.1]\n(c) thedev0ps (Adam Al Shouli). All rights reserved.\n\nPress enter to continue..."
+        )
