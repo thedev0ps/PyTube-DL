@@ -66,7 +66,7 @@ def load_config(config_path: Path = config_path) -> dict:
     return {
         "default_video": config["default-video-path"],
         "default_audio": config["default-audio-path"],
-        "defautlt_outtmpl": config["default-outtmpl"],
+        "default_outtmpl": config["default-outtmpl"],
     }
 
 
