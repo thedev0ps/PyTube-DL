@@ -29,19 +29,23 @@ if "config.json" not in os.listdir(utils.parent_dir):
     utils.create_config()
 
 os.system("cls") if platform.system() == "Windows" else os.system("clear")
-if not utils.check_ffmpeg():
 
+if not utils.check_ffmpeg():
     choice = ""
     while choice.lower() not in ["yes", "y", "no", "n"]:
         choice = input(
             "FFMPEG is not installed. This could lead to a 720p limit and other issues. Continue? [Y/N]: "
         )
+
         if choice.lower() == "y" or choice.lower() == "yes":
             pass
+
         elif choice.lower() == "n" or choice.lower() == "no":
             quit()
+
         else:
             print("Invalid input.")
+
     os.system("cls") if platform.system() == "Windows" else os.system("clear")
 
 choice = ""
