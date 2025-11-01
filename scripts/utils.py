@@ -24,7 +24,7 @@ def type_out(string: str, delay: float = 0.1, ending="\n"):
         print(ending)
 
 
-def create_config_json(config_path: Path = config_path):
+def create_config(config_path: Path = config_path):
     """
     Creates a default config.json file with predefined video and audio paths.
 
@@ -61,7 +61,7 @@ def get_config(config_path: Path = config_path) -> dict:
             config = json.load(config_file)
 
     except FileNotFoundError:
-        create_config_json()
+        create_config()
 
     return {
         "video": config["default-video-path"],
