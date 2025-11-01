@@ -45,15 +45,15 @@ def create_config_json(config_path: Path = config_path):
         json.dump(config, config_file, indent=2)
 
 
-def get_default_paths(config_path: Path = config_path) -> dict:
+def get_config(config_path: Path = config_path) -> dict:
     """
-    Returns default download paths for video and audio from the config file.
+    Returns default download paths for video and audio and output template from the config file.
 
     Args:
         config_path (Path, optional): Path to the config JSON file. Defaults to 'config.json'.
 
     Returns:
-        dict: {"video": <video_path>, "audio": <audio_path>}
+        dict: {"video": <video_path>, "audio": <audio_path>, "outtmpl": <output_template>}
     """
 
     try:
@@ -66,6 +66,7 @@ def get_default_paths(config_path: Path = config_path) -> dict:
     return {
         "video": config["default-video-path"],
         "audio": config["default-audio-path"],
+        "outtmpl": config["default-outtmpl"],
     }
 
 
