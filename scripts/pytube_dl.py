@@ -2,7 +2,12 @@ import yt_dlp
 import scripts.utils as utils
 import os
 
-options = {"quiet": True, "no_warnings": True}
+options = {
+    "quiet": True,
+    "no_warnings": True,
+    "ffmpeg_location": utils.load_config().get("default_ffmpeg"),
+}
+
 ydl = yt_dlp.YoutubeDL(options)
 
 
@@ -31,15 +36,13 @@ def get_video_info(url: str) -> dict | None:
         return None
 
 
-def download_video(url: str) -> None:
+def download_video(url: str, resolution: str = None) -> None:
     """
     Download a video from a URL to the default video folder using yt-dlp.
 
-    The downloaded video will be saved with the filename format:
-    "<title> - <uploader>.<ext>".
-
     Args:
         url (str): The URL of the video to download.
+        resolution (str): The resolution of the video of be downloaded.
 
     Returns:
         None: This function does not return anything. If the download fails,
@@ -53,6 +56,20 @@ def download_video(url: str) -> None:
         )
         local_options = options.copy()
         local_options.update({"outtmpl": outtmpl})
+
+        if utils.check_ffmpeg():
+            if resolution.lower() not in ["h", "highest"]:
+                local_options.update(
+                    {
+                        "format": f"bestvideo[height={resolution}][vcodec^=avc1]+bestaudio[acodec^=mp4a]/mp4",
+                    }
+                )
+
+            else:
+                local_options.update(
+                    {"format": "bestvideo[vcodec^=avc1]+bestaudio[acodec^=mp4a]/mp4"}
+                )
+
         with yt_dlp.YoutubeDL(local_options) as ydl:
             ydl.download([url])
 
