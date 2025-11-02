@@ -37,9 +37,10 @@ def create_config(config_path: Path = config_path):
     """
 
     config = {
+        "default-ffmpeg": str(parent_dir / "bin"),
+        "default-outtmpl": "%(title)s - %(uploader)s.%(ext)s",
         "default-video-path": str(parent_dir / "Video"),
         "default-audio-path": str(parent_dir / "Audio"),
-        "default-outtmpl": "%(title)s - %(uploader)s.%(ext)s",
     }
 
     with open(config_path, "w") as config_file:
@@ -65,9 +66,10 @@ def load_config(config_path: Path = config_path) -> dict:
         create_config()
 
     return {
+        "default_ffmpeg": config["default-ffmpeg"],
+        "default_outtmpl": config["default-outtmpl"],
         "default_video": config["default-video-path"],
         "default_audio": config["default-audio-path"],
-        "default_outtmpl": config["default-outtmpl"],
     }
 
 
