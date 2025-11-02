@@ -14,7 +14,7 @@ except ImportError:
         "Some required packages are missing. Would you like to install them? [Y/N]: "
     )
     if packages.lower() == "y":
-        if platform.system == "Windows":
+        if platform.system() == "Windows":
             os.system("pip install -r requirements.txt")
 
         else:
