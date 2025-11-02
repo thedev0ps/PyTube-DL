@@ -212,3 +212,6 @@ config.json
 # Downloads folders
 Video/
 Audio/
+
+# Binaries
+bin/*
