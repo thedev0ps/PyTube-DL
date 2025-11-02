@@ -107,7 +107,7 @@ while choice.lower() not in ["d", "c", "e"] or choice.lower() != "e":
             valid_resolution = False
             resolution = ""
 
-            while not valid_resolution or resolution.lower() not in ["h", "highest"]:
+            while not valid_resolution and resolution.lower() not in ["h", "highest"]:
                 resolution = input(
                     "Enter video resolution (Ex: 720, 1080, [H]ighest): "
                 )
