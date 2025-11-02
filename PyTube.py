@@ -25,8 +25,9 @@ except ImportError:
         )
         quit()
 
-version = 0.1
-title = f"PyTube Downloader v{version}"
+with open("VERSION", "r") as version:
+    version = version.read()
+    title = f"PyTube Downloader {version}"
 
 if "config.json" not in os.listdir(utils.parent_dir):
     utils.create_config()
