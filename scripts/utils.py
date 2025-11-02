@@ -2,6 +2,9 @@ import time
 import json
 from pathlib import Path
 import os
+import requests
+import zipfile
+import shutil
 
 parent_dir = Path(__file__).resolve().parent.parent
 config_path = parent_dir / "config.json"
@@ -86,3 +89,35 @@ def check_ffmpeg() -> bool:
             return True
 
     return False
+
+
+def download_ffmpeg(platform: str):
+    """
+    Downloads and sets up FFmpeg for the given platform.
+
+    Args:
+        platform (str): The target platform. Should be "Windows" or "Darwin".
+    """
+
+    url = (
+        "https://github.com/GyanD/codexffmpeg/releases/download/8.0/ffmpeg-8.0-essentials_build.zip"
+        if platform == "Windows"
+        else "https://evermeet.cx/ffmpeg/ffmpeg-8.0.zip"
+    )
+
+    with requests.get(url, stream=True) as request:
+        request.raise_for_status()
+        with open(f"{parent_dir}\\bin\\ffmpeg-8.0.zip", "wb") as ffmpeg:
+            for chunk in request.iter_content(chunk_size=8192):
+                ffmpeg.write(chunk)
+
+    with zipfile.ZipFile(f"{parent_dir}\\bin\\ffmpeg-8.0.zip") as archive:
+        archive.extractall(f"{parent_dir}\\bin\\")
+
+    shutil.move(
+        f"{parent_dir}\\bin\\ffmpeg-8.0-essentials_build\\bin\\ffmpeg.exe",
+        f"{parent_dir}\\bin",
+    )
+
+    shutil.rmtree(f"{parent_dir}\\bin\\ffmpeg-8.0-essentials_build")
+    os.remove(f"{parent_dir}\\bin\\ffmpeg-8.0.zip")
