@@ -3,6 +3,10 @@ import platform
 
 try:
     import scripts.utils as utils
+
+    if "config.json" not in os.listdir(utils.parent_dir):
+        utils.create_config()
+
     import scripts.pytube_dl as pytube_dl
 
 except ImportError:
@@ -17,6 +21,10 @@ except ImportError:
             os.system("pip3 install -r requirements.txt")
 
         import scripts.utils as utils
+
+        if "config.json" not in os.listdir(utils.parent_dir):
+            utils.create_config()
+
         import scripts.pytube_dl as pytube_dl
 
     else:
@@ -29,8 +37,6 @@ with open("VERSION", "r") as version:
     version = version.read()
     title = f"PyTube Downloader {version}"
 
-if "config.json" not in os.listdir(utils.parent_dir):
-    utils.create_config()
 
 os.system("cls") if platform.system() == "Windows" else os.system("clear")
 
