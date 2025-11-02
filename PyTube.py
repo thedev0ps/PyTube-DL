@@ -38,17 +38,36 @@ if not utils.check_ffmpeg():
     choice = ""
     while choice.lower() not in ["yes", "y", "no", "n"]:
         choice = input(
-            "FFMPEG is not installed. This could lead to a 720p limit and other issues. Continue? [Y/N]: "
+            "FFmpeg is not installed. Would you like to install it automatically for Windows/MacOS? [Y/N]: "
         )
 
         if choice.lower() == "y" or choice.lower() == "yes":
-            pass
+            utils.download_ffmpeg(platform.system())
 
         elif choice.lower() == "n" or choice.lower() == "no":
-            quit()
+            choice = ""
+            while choice.lower() not in ["yes", "y", "no", "n"]:
+                choice = input(
+                    "\nUsing this program without FFmpeg would lead to inssues including incorrect codes.\nWould you like to continue without FFmpeg? [Y/N]: "
+                )
+
+                if choice.lower() == "y" or choice.lower() == "yes":
+                    pass
+
+                elif choice.lower() == "n" or choice.lower() == "no":
+                    quit()
+
+                else:
+                    (
+                        os.system("cls")
+                        if platform.system() == "Windows"
+                        else os.system("clear")
+                    )
+                    print("Invalid input. Press enter Y for yes or N for no.")
 
         else:
-            print("Invalid input.")
+            (os.system("cls") if platform.system() == "Windows" else os.system("clear"))
+            print("Invalid input. Press enter Y for yes or N for no.")
 
     os.system("cls") if platform.system() == "Windows" else os.system("clear")
 
@@ -88,7 +107,11 @@ while choice.lower() not in ["d", "c", "e"] or choice.lower() != "e":
             f"\nTitle: {info.get("title")}\nUploader: {info.get("uploader")}\nViews: {info.get("views"):,}",
             delay=0.03,
         )
-        pytube_dl.download_video(url)
+        (
+            pytube_dl.download_video(url)
+            if utils.check_ffmpeg()
+            else pytube_dl.download_video(url)
+        )
         convert_again = input(
             "Download Complete! Do you want to download another video [Y/N]: "
         )
