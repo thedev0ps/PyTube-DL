@@ -102,13 +102,30 @@ while choice.lower() not in ["d", "c", "e"] or choice.lower() != "e":
     while choice.lower() == "d":
         os.system("cls") if platform.system() == "Windows" else os.system("clear")
         url = input("Enter YouTube video URL: ")
+
+        if utils.check_ffmpeg():
+            valid_resolution = False
+            resolution = ""
+
+            while not valid_resolution or resolution.lower() not in ["h", "highest"]:
+                resolution = input(
+                    "Enter video resolution (Ex: 720, 1080, [H]ighest): "
+                )
+                try:
+                    int(resolution[:-1])
+                except ValueError:
+                    valid_resolution = False
+                else:
+                    valid_resolution = True
+                    resolution = resolution.replace("p", "")
+
         info = pytube_dl.get_video_info(url)
         utils.type_out(
             f"\nTitle: {info.get("title")}\nUploader: {info.get("uploader")}\nViews: {info.get("views"):,}",
             delay=0.03,
         )
         (
-            pytube_dl.download_video(url)
+            pytube_dl.download_video(url, resolution)
             if utils.check_ffmpeg()
             else pytube_dl.download_video(url)
         )
