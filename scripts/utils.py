@@ -107,17 +107,17 @@ def download_ffmpeg(platform: str):
 
     with requests.get(url, stream=True) as request:
         request.raise_for_status()
-        with open(f"{parent_dir}\\bin\\ffmpeg-8.0.zip", "wb") as ffmpeg:
+        with open(f"{parent_dir}/bin/ffmpeg-8.0.zip", "wb") as ffmpeg:
             for chunk in request.iter_content(chunk_size=8192):
                 ffmpeg.write(chunk)
 
-    with zipfile.ZipFile(f"{parent_dir}\\bin\\ffmpeg-8.0.zip") as archive:
-        archive.extractall(f"{parent_dir}\\bin\\")
+    with zipfile.ZipFile(f"{parent_dir}/bin/ffmpeg-8.0.zip") as archive:
+        archive.extractall(f"{parent_dir}/bin/")
 
     shutil.move(
-        f"{parent_dir}\\bin\\ffmpeg-8.0-essentials_build\\bin\\ffmpeg.exe",
-        f"{parent_dir}\\bin",
+        f"{parent_dir}/bin/ffmpeg-8.0-essentials_build/bin/ffmpeg.exe",
+        f"{parent_dir}/bin",
     )
 
-    shutil.rmtree(f"{parent_dir}\\bin\\ffmpeg-8.0-essentials_build")
-    os.remove(f"{parent_dir}\\bin\\ffmpeg-8.0.zip")
+    shutil.rmtree(f"{parent_dir}/bin/ffmpeg-8.0-essentials_build")
+    os.remove(f"{parent_dir}/bin/ffmpeg-8.0.zip")
