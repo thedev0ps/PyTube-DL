@@ -114,10 +114,11 @@ def download_ffmpeg(platform: str):
     with zipfile.ZipFile(f"{parent_dir}/bin/ffmpeg-8.0.zip") as archive:
         archive.extractall(f"{parent_dir}/bin/")
 
-    shutil.move(
-        f"{parent_dir}/bin/ffmpeg-8.0-essentials_build/bin/ffmpeg.exe",
-        f"{parent_dir}/bin",
-    )
+    if platform == "Windows":
+        shutil.move(
+            f"{parent_dir}/bin/ffmpeg-8.0-essentials_build/bin/ffmpeg.exe",
+            f"{parent_dir}/bin",
+        )
+        shutil.rmtree(f"{parent_dir}/bin/ffmpeg-8.0-essentials_build")
 
-    shutil.rmtree(f"{parent_dir}/bin/ffmpeg-8.0-essentials_build")
     os.remove(f"{parent_dir}/bin/ffmpeg-8.0.zip")
