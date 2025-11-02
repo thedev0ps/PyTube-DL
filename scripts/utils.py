@@ -120,5 +120,7 @@ def download_ffmpeg(platform: str):
             f"{parent_dir}/bin",
         )
         shutil.rmtree(f"{parent_dir}/bin/ffmpeg-8.0-essentials_build")
+    else:
+        os.system(f"chmod +x {parent_dir}/bin/ffmpeg")
 
     os.remove(f"{parent_dir}/bin/ffmpeg-8.0.zip")
